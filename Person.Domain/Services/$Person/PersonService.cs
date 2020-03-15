@@ -249,7 +249,7 @@ namespace Person.Domain.Services
         }
 
 
-        public ServiceResult<PersonInfoVm> GetUserInfo(long personId)
+        public ServiceResult<PersonInfoVm> GetPersonInfo(long personId)
         {
             var person = _repository.Person.GetById(personId);
             if (person == null)

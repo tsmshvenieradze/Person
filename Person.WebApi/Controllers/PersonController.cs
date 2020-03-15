@@ -18,12 +18,12 @@ namespace Person.WebApi.Controllers
     [Route("api/person")]
     public class PersonController : BaseController
     {
-        private readonly PersonService _userService;
+        private readonly PersonService _personService;
 
-        public PersonController(PersonService userService, IStringLocalizer<SharedResources> _localizer) : base(
+        public PersonController(PersonService personService, IStringLocalizer<SharedResources> _localizer) : base(
             _localizer)
         {
-            _userService = userService;
+            _personService = personService;
         }
 
         [HttpPost]
@@ -32,7 +32,7 @@ namespace Person.WebApi.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public IActionResult AddPerson([FromBody] PersonCreateVm model)
         {
-            var apiResult = Try(() => { return _userService.AddPerson(model); });
+            var apiResult = Try(() => { return _personService.AddPerson(model); });
 
             return Ok(apiResult);
         }
@@ -43,7 +43,7 @@ namespace Person.WebApi.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public IActionResult UpdatePerson([FromBody] PersonUpdateVm model)
         {
-            var apiResult = Try(() => { return _userService.UpdatePerson(model); });
+            var apiResult = Try(() => { return _personService.UpdatePerson(model); });
 
             return Ok(apiResult);
         }
@@ -54,7 +54,7 @@ namespace Person.WebApi.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public IActionResult UpdatePerson([FromBody] RelatedPersonCreateVm model)
         {
-            var apiResult = Try(() => { return _userService.AddRelatedPerson(model); });
+            var apiResult = Try(() => { return _personService.AddRelatedPerson(model); });
 
             return Ok(apiResult);
         }
@@ -65,7 +65,7 @@ namespace Person.WebApi.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public IActionResult DeletePerson([FromBody] DeletePersonVm model)
         {
-            var apiResult = Try(() => { return _userService.DeletePerson(model); });
+            var apiResult = Try(() => { return _personService.DeletePerson(model); });
 
             return Ok(apiResult);
         }
@@ -76,7 +76,7 @@ namespace Person.WebApi.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public IActionResult UpdatePerson([FromBody] DeleteRelatedPersonVm model)
         {
-            var apiResult = Try(() => { return _userService.DeleteRelatedPerson(model); });
+            var apiResult = Try(() => { return _personService.DeleteRelatedPerson(model); });
 
             return Ok(apiResult);
         }
@@ -116,7 +116,7 @@ namespace Person.WebApi.Controllers
             }
 
 
-            var apiResult = Try(() => { return _userService.UploadImage(personId, dbPath); });
+            var apiResult = Try(() => { return _personService.UploadImage(personId, dbPath); });
             return Ok(apiResult);
         }
 
@@ -124,7 +124,7 @@ namespace Person.WebApi.Controllers
         [Route("get-person-info/{personId}")]
         public IActionResult GetPersonInfo(long personId)
         {
-            var apiResult = Try(() => { return _userService.GetUserInfo(personId); });
+            var apiResult = Try(() => { return _personService.GetPersonInfo(personId); });
 
             return Ok(apiResult);
         }
@@ -135,7 +135,7 @@ namespace Person.WebApi.Controllers
         [Route("fast-search")]
         public IActionResult FastSearch(string firstname, string lastname, string privatenumber)
         {
-            var apiResult = Try(() => { return _userService.FastSearch(firstname, lastname, privatenumber); });
+            var apiResult = Try(() => { return _personService.FastSearch(firstname, lastname, privatenumber); });
 
             return Ok(apiResult);
         }
@@ -148,7 +148,7 @@ namespace Person.WebApi.Controllers
             DateTime? birthDateStart, DateTime? birthDateEnd, Gender gender,
             int page)
         {
-            var apiResult = Try(() => { return _userService.AdvancedSearch(firstName, lastName, privateNumber, birthDateStart, birthDateEnd, gender, page); });
+            var apiResult = Try(() => { return _personService.AdvancedSearch(firstName, lastName, privateNumber, birthDateStart, birthDateEnd, gender, page); });
 
             return Ok(apiResult);
         }
@@ -157,7 +157,7 @@ namespace Person.WebApi.Controllers
         [Route("get-report")]
         public IActionResult GetReport( )
         {
-            var apiResult = Try(() => { return _userService.GetReport(); });
+            var apiResult = Try(() => { return _personService.GetReport(); });
 
             return Ok(apiResult);
         }
